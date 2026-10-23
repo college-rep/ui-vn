@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://c77cu1m2fgjse"]
+
+[ext_resource type="Texture2D" uid="uid://cfspocrd35dwx" path="res://images/bedroom-at-night.jpg" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://drtahay01s1dm" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://b83j5w755qhvv" path="res://images/night-park.jpg" id="3_lnu2h"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_evfwu"]
+resource_local_to_scene = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
+content_margin_left = 128.0
+content_margin_top = 32.0
+content_margin_right = 128.0
+content_margin_bottom = 32.0
+bg_color = Color(0.6, 0.6, 0.6, 0.5882353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cddq"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5882353)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evfwu"]
+bg_color = Color(0, 0.9411765, 0.9411765, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfb"]
+bg_color = Color(0, 0.9411765, 0.9411765, 0.5882353)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Game" type="Control" unique_id=870205339]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqjtg")
+
+[node name="NightUI" type="Control" parent="." unique_id=1365220100]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextureRect" type="TextureRect" parent="NightUI" unique_id=1812168325]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ImageTexture_evfwu")
+
+[node name="BedroomAtNight" type="Sprite2D" parent="NightUI/TextureRect" unique_id=2064243912]
+texture = ExtResource("1_uwrxv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NightUI" unique_id=14955744]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 1920.0
+grow_vertical = 0
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu2h")
+bbcode_enabled = true
+text = "A taste of Night room"
+
+[node name="ParkUI" type="Control" parent="." unique_id=1023211113]
+visible = false
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextureRect" type="TextureRect" parent="ParkUI" unique_id=10203525]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_lnu2h")
+expand_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ParkUI" unique_id=712349990]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 1920.0
+grow_vertical = 0
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu2h")
+bbcode_enabled = true
+text = "A taste of Park"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=20418357]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1200.0
+offset_top = -880.0
+offset_right = 1712.0
+offset_bottom = -368.0
+grow_vertical = 0
+theme_override_constants/separation = 32
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=700085474]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
+text = "room ON"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1640531346]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
+text = "park ON"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1640786465]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
+text = "Option3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=102439066]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 1920.0
+grow_vertical = 0
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
