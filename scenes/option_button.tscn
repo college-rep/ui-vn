@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bd0ong4henkp7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cddq"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5882353)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evfwu"]
+bg_color = Color(0, 0.9411765, 0.9411765, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfb"]
+bg_color = Color(0, 0.9411765, 0.9411765, 0.5882353)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Button" type="Button" unique_id=75499428]
+custom_minimum_size = Vector2(512, 128)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
+text = "room ON"

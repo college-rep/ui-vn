@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c77cu1m2fgjse"]
 
 [ext_resource type="Texture2D" uid="uid://cfspocrd35dwx" path="res://images/bedroom-at-night.jpg" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://drtahay01s1dm" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://drtahay01s1dm" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://2not4q43db4g" path="res://icons/settings.svg" id="3_gee14"]
+[ext_resource type="Texture2D" uid="uid://c7fjnlwtoucxf" path="res://icons/arrow_forward.svg" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://b83j5w755qhvv" path="res://images/night-park.jpg" id="3_lnu2h"]
-
-[sub_resource type="ImageTexture" id="ImageTexture_evfwu"]
-resource_local_to_scene = true
+[ext_resource type="Texture2D" uid="uid://d2jepejpci0w1" path="res://icons/arrow_back.svg" id="3_p57ef"]
+[ext_resource type="Texture2D" uid="uid://dfeh8qdpw50ts" path="res://icons/history.svg" id="3_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://bd0ong4henkp7" path="res://scenes/option_button.tscn" id="5_p57ef"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnu2h"]
 content_margin_left = 128.0
@@ -13,6 +15,9 @@ content_margin_top = 32.0
 content_margin_right = 128.0
 content_margin_bottom = 32.0
 bg_color = Color(0.6, 0.6, 0.6, 0.5882353)
+
+[sub_resource type="ImageTexture" id="ImageTexture_evfwu"]
+resource_local_to_scene = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cddq"]
 bg_color = Color(0.6, 0.6, 0.6, 0.5882353)
@@ -45,7 +50,84 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqjtg")
 
+[node name="ParkUI" type="Control" parent="." unique_id=1023211113]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextureRect" type="TextureRect" parent="ParkUI" unique_id=10203525]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_lnu2h")
+expand_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ParkUI" unique_id=712349990]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 1920.0
+offset_bottom = 100.0
+grow_vertical = 0
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_lnu2h")
+bbcode_enabled = true
+text = "A taste of Park"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ParkUI/RichTextLabel" unique_id=710437669]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+
+[node name="SettingsButton" type="Button" parent="ParkUI/RichTextLabel/HBoxContainer" unique_id=2106714852]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_transform_enabled = true
+icon = ExtResource("3_gee14")
+icon_alignment = 2
+expand_icon = true
+
+[node name="HistoryButton" type="Button" parent="ParkUI/RichTextLabel/HBoxContainer" unique_id=2013747489]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+icon = ExtResource("3_u5sy4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="BackButton" type="Button" parent="ParkUI/RichTextLabel/HBoxContainer" unique_id=1520250508]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_transform_enabled = true
+icon = ExtResource("3_p57ef")
+icon_alignment = 2
+expand_icon = true
+
+[node name="NextButton" type="Button" parent="ParkUI/RichTextLabel/HBoxContainer" unique_id=1058902539]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+icon = ExtResource("3_iywne")
+icon_alignment = 1
+expand_icon = true
+
 [node name="NightUI" type="Control" parent="." unique_id=1365220100]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_right = 1920.0
@@ -83,38 +165,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lnu2h")
 bbcode_enabled = true
 text = "A taste of Night room"
 
-[node name="ParkUI" type="Control" parent="." unique_id=1023211113]
-visible = false
-layout_mode = 1
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="TextureRect" type="TextureRect" parent="ParkUI" unique_id=10203525]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("3_lnu2h")
-expand_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ParkUI" unique_id=712349990]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -300.0
-offset_right = 1920.0
-grow_vertical = 0
-theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_lnu2h")
-bbcode_enabled = true
-text = "A taste of Park"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=20418357]
 layout_mode = 1
 anchors_preset = 2
@@ -127,15 +177,8 @@ offset_bottom = -368.0
 grow_vertical = 0
 theme_override_constants/separation = 32
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=700085474]
-custom_minimum_size = Vector2(512, 128)
+[node name="Button" parent="VBoxContainer" unique_id=75499428 instance=ExtResource("5_p57ef")]
 layout_mode = 2
-theme_override_constants/outline_size = 16
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
-theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
-text = "room ON"
 
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=1640531346]
 custom_minimum_size = Vector2(512, 128)
@@ -156,15 +199,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7cddq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
 text = "Option3"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=102439066]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -64.0
-offset_right = 1920.0
-grow_vertical = 0
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

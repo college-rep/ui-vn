@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://q5srx51mi4tc"]
+
+[ext_resource type="Texture2D" uid="uid://c7fjnlwtoucxf" path="res://icons/arrow_forward.svg" id="1_v7yn6"]
+
+[node name="Button" type="Button" unique_id=1058902539]
+custom_minimum_size = Vector2(64, 64)
+icon = ExtResource("1_v7yn6")
+icon_alignment = 1
+expand_icon = true
