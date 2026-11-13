@@ -1,8 +1,19 @@
 extends Control
 
+const file_functions = preload("res://scripts/file_functions.gd")
+
 var button2_counter=0
+var dialogue_files:Array
+var dialogue:Dictionary
+var dialogue_lines:Array
+var dialogue_index:int=0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	dialogue_files= file_functions.get_dialogue_files("res://dialogue")
+	dialogue = file_functions.load_json_file("res://dialogue/"+dialogue_files[0])
+	
+	dialogue_lines=dialogue['dialogue_lines']
+	$ParkUI/RichTextLabel.text=dialogue_lines[0]['text']
 	pass # Replace with function body.
 
 
@@ -55,3 +66,9 @@ func load_json_file(file_path: String) -> Variant:
 		print("ERROR: Failed to parse JSON data from file: ", file_path)
 		return null
 	return parsed_data
+
+
+func _on_next_button_pressed() -> void:
+	dialogue_index+=1
+	$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
+	pass # Replace with function body.

@@ -68,9 +68,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -300.0
+offset_top = -400.0
 offset_right = 1920.0
-offset_bottom = 100.0
 grow_vertical = 0
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/normal_font_size = 32
@@ -200,6 +199,8 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_evfwu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jyhfb")
 text = "Option3"
 
+[connection signal="pressed" from="ParkUI/RichTextLabel/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="toggled" from="ParkUI/RichTextLabel/HBoxContainer/NextButton" to="." method="_on_next_button_toggled"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
