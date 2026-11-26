@@ -1,150 +1,210 @@
 extends Control
 
 const file_functions = preload("res://scripts/file_functions.gd")
+const option_button_scene = preload("res://scenes/option_button.tscn")
+
+var story_data: Dictionary = {}
+var story_nodes: Dictionary = {}
+var current_node_id: String = "S01"
+var line_index: int = 0
+
+var score_human: int = 0
+var score_ia: int = 0
+var history_stack: Array[Dictionary] = []
+
+var characters: Dictionary = {}
+var backgrounds: Dictionary = {}
 
 
-var dialogue_files:Array
-
-var dialogue:Array[Dictionary]
-var dialogue_lines:Array
-
-var dialogue_index:int=0
-var dialogue_line_count:int=0
-
-var file_index=0
-var file_count=0
-
-var final_decision=0
-var decision_list:Array[int]=[]
-
-var characters:Dictionary[String,Texture2D]
-
-var game_ended=false
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	dialogue_files= file_functions.get_dialogue_files("res://dialogue")
-	file_count=dialogue_files.size()
-	characters["character_a.png"]=load("res://images/character_a.png")
-	characters["character_b.png"]=load("res://images/character_b.png")
-	for file in dialogue_files:
-		dialogue.append(file_functions.load_json_file("res://dialogue/"+file))
-	dialogue_lines=dialogue[file_index]['dialogue_lines']
-	dialogue_line_count=dialogue[file_index]['dialogue_lines'].size()
-	$ParkUI/RichTextLabel.text=dialogue_lines[0]['text']
-	$VBoxContainer.visible=false
-	#$ParkUI/RichTextLabel.visible_ratio=0.5
+	characters["character_a.png"] = load("res://images/character_a.png")
+	characters["character_b.png"] = load("res://images/character_b.png")
+	characters["character_phone_call.svg"] = load("res://images/character_phone_call.svg")
+
+	var loaded = file_functions.load_json_file("res://dialogue/story.json")
+	if typeof(loaded) == TYPE_DICTIONARY:
+		story_data = loaded
+		story_nodes = story_data.get("nodes", {})
+		current_node_id = story_data.get("start_node", "S01")
+
+	$VBoxContainer.visible = false
+	_render_current()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
-	
+
+
+func _get_bg_texture(bg_name: String) -> Texture2D:
+	if not backgrounds.has(bg_name):
+		backgrounds[bg_name] = load("res://images/" + bg_name)
+	return backgrounds[bg_name]
+
+
+func _render_current() -> void:
+	if not story_nodes.has(current_node_id):
+		return
+
+	var node: Dictionary = story_nodes[current_node_id]
+	var lines: Array = node.get("lines", [])
+	if lines.is_empty():
+		return
+
+	line_index = clampi(line_index, 0, lines.size() - 1)
+	var line: Dictionary = lines[line_index]
+
+	var bg_name: String = node.get("background", "bg_apartment.png")
+	$ParkUI/TextureRect.texture = _get_bg_texture(bg_name)
+
+	$ParkUI/RichTextLabel/RichTextLabel.text = str(line.get("speaker", ""))
+	$ParkUI/RichTextLabel.text = str(line.get("text", ""))
+
+	# Only Connie (character_a.png) and Alexa (character_b.png) are shown; Shae stays off-screen.
+	var side_img = line.get("side_image", null)
+	if side_img != null and characters.has(str(side_img)):
+		$ParkUI/character_left.texture = characters[str(side_img)]
+	else:
+		$ParkUI/character_left.texture = null
+
+	var choices: Array = node.get("choices", [])
+	var show_choices := not choices.is_empty() and line_index == lines.size() - 1
+	var is_end: bool = node.get("is_end", false) and line_index == lines.size() - 1
+
+	_rebuild_choice_buttons(choices if show_choices else [])
+	$VBoxContainer.visible = show_choices
+	$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled = show_choices or is_end
+	$ParkUI/RichTextLabel/HBoxContainer/BackButton.disabled = history_stack.is_empty()
+
+
+func _rebuild_choice_buttons(choices: Array) -> void:
+	for child in $VBoxContainer.get_children():
+		child.queue_free()
+
+	if choices.is_empty():
+		return
+
+	var many := choices.size() > 2
+	$VBoxContainer.add_theme_constant_override("separation", 14 if many else 28)
+	$VBoxContainer.offset_left = 960.0 if many else 1000.0
+	$VBoxContainer.offset_right = 1800.0 if many else 1700.0
+	$VBoxContainer.offset_top = -980.0 if many else -880.0
+	$VBoxContainer.offset_bottom = -470.0 if many else -368.0
+
+	for i in range(choices.size()):
+		var btn: Button = option_button_scene.instantiate()
+		btn.text = str(choices[i].get("text", ""))
+		btn.custom_minimum_size = Vector2(820, 96) if many else Vector2(700, 150)
+		btn.add_theme_font_size_override("font_size", 24 if many else 30)
+		btn.pressed.connect(_on_choice_selected.bind(i))
+		$VBoxContainer.add_child(btn)
+
+
+func _push_history() -> void:
+	history_stack.append({
+		"node_id": current_node_id,
+		"line_index": line_index,
+		"score_human": score_human,
+		"score_ia": score_ia,
+	})
+
+
+func _on_choice_selected(choice_idx: int) -> void:
+	var node: Dictionary = story_nodes.get(current_node_id, {})
+	var choices: Array = node.get("choices", [])
+	if choice_idx < 0 or choice_idx >= choices.size():
+		return
+
+	_push_history()
+	var choice: Dictionary = choices[choice_idx]
+	score_human += int(choice.get("human_delta", 0))
+	score_ia += int(choice.get("ia_delta", 0))
+	current_node_id = str(choice.get("next", "END"))
+	line_index = 0
+	_render_current()
 
 
 func _on_button_pressed() -> void:
-	final_decision+=dialogue_lines[0]["stat_changes"]["final_decision"]
-	decision_list.append(dialogue_lines[0]["stat_changes"]["final_decision"])
-	handle_next_file()
+	_on_choice_selected(0)
+
 
 func _on_button_2_pressed() -> void:
-	final_decision+=dialogue_lines[1]["stat_changes"]["final_decision"]
-	decision_list.append(dialogue_lines[1]["stat_changes"]["final_decision"])
-	handle_next_file()
+	_on_choice_selected(1)
+
 
 func _on_next_button_pressed() -> void:
-	if (dialogue_index==(dialogue_line_count-1)):
-		handle_next_file()
+	var node: Dictionary = story_nodes.get(current_node_id, {})
+	var lines: Array = node.get("lines", [])
+	if line_index < lines.size() - 1:
+		_push_history()
+		line_index += 1
+		_render_current()
+		return
+
+	if not node.get("choices", []).is_empty() or node.get("is_end", false):
+		return
+
+	_push_history()
+	if node.get("branch_on_score", false):
+		current_node_id = str(node.get("next_human", "S12A")) if score_human >= 2 else str(node.get("next_ia", "S12B"))
 	else:
-		dialogue_index+=1
-		print("dialogue_index: "+str(dialogue_index))
-		$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
-	update_character()
+		current_node_id = str(node.get("next", "END"))
+	line_index = 0
+	_render_current()
+
 
 func _on_back_button_pressed() -> void:
-	print("dialogue_index: "+str(dialogue_index))
-	print("file_index: "+str(file_index))
-	if (dialogue_index==0):
-		print("--------going back to previous file")
-		handle_previous_file()
-	elif(game_ended):
-		game_ended=false
-		$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
-	else:
-		dialogue_index-=1
-		$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
-	update_character()
+	if history_stack.is_empty():
+		return
+	var prev: Dictionary = history_stack.pop_back()
+	current_node_id = str(prev.get("node_id", "S01"))
+	line_index = int(prev.get("line_index", 0))
+	score_human = int(prev.get("score_human", 0))
+	score_ia = int(prev.get("score_ia", 0))
+	_render_current()
+
 
 func _on_history_button_pressed() -> void:
-	pass # Replace with function body.
+	pass
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_on_settings_button_pressed()
 
 
 func _on_settings_button_pressed() -> void:
-	pass # Replace with function body.
+	$SettingsMenu.visible = not $SettingsMenu.visible
+	_update_fullscreen_button_label()
 
-func handle_previous_file()-> void:
-	print(file_count)
-	if file_index==0 and dialogue_index==0:
-		print("we're in the beginning of the file")
-	else:
-		file_index-=1
-		if(file_index==file_count-2):
-			file_index-=1
-		if(dialogue[file_index]['file_type']==0):
-			$VBoxContainer.visible=false
-			$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled=false
-			dialogue_lines=dialogue[file_index]['dialogue_lines']
-			dialogue_line_count=dialogue[file_index]['dialogue_lines'].size()
-			dialogue_index=dialogue_line_count-1
-			$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
-		elif(dialogue[file_index]['file_type']==1):
-			$VBoxContainer.visible=true
-			$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled=true
-			dialogue_lines=dialogue[file_index]['choices']
-			$ParkUI/RichTextLabel.text=dialogue[file_index]['question']['text']
-			$VBoxContainer/Button.text=dialogue_lines[0]["text"]
-			$VBoxContainer/Button2.text=dialogue_lines[1]["text"]
-			final_decision-=decision_list[-1]
-			decision_list.pop_back()
-		$ParkUI/TextureRect.texture=load("res://images/"+dialogue[file_index]["background"])
 
-func handle_next_file()->void:
-	if file_index==file_count-1 or file_index==file_count-2:
-		$ParkUI/RichTextLabel.text="end of the game"
-		$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled=true
-		game_ended=true
-		print("dialogue_index" +str(dialogue_index))
-	else:
-		file_index+=1
-		dialogue_index=0
-		print(file_count)
-		print("file_index in handle_next_file(): " + str(file_index))
-		if(dialogue[file_index]['file_type']==0):
-			$VBoxContainer.visible=false
-			$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled=false
-			#this means we're on the final stretch
-			if(file_index==(file_count-2) and (final_decision>0)):
-				file_index+=1
-			dialogue_lines=dialogue[file_index]['dialogue_lines']
-			dialogue_line_count=dialogue[file_index]['dialogue_lines'].size()
-			$ParkUI/RichTextLabel.text=dialogue_lines[dialogue_index]['text']
-			#if(file_index==(file_count-2)):
-				#file_index+=1
-		elif(dialogue[file_index]['file_type']==1):
-			$VBoxContainer.visible=true
-			$ParkUI/RichTextLabel/HBoxContainer/NextButton.disabled=true
-			dialogue_lines=dialogue[file_index]['choices']
-			$ParkUI/RichTextLabel.text=dialogue[file_index]['question']['text']
-			$VBoxContainer/Button.text=dialogue_lines[0]["text"]
-			$VBoxContainer/Button2.text=dialogue_lines[1]["text"]
-		$ParkUI/TextureRect.texture=load("res://images/"+dialogue[file_index]["background"])
+func _on_resume_button_pressed() -> void:
+	$SettingsMenu.visible = false
 
-func update_character()->void:
-		
-	if((dialogue[file_index]["file_type"]==0)and dialogue[file_index]["dialogue_lines"][dialogue_index]["side_image"]):
-		print("debug")
-		$ParkUI/character_left.texture=characters[dialogue[file_index]["dialogue_lines"][dialogue_index]["side_image"]]
-	elif((dialogue[file_index]["file_type"]==1)and dialogue[file_index]["question"]["side_image"]):
-		$ParkUI/character_left.texture=characters[dialogue[file_index]["question"]["side_image"]]
+
+func _on_fullscreen_button_pressed() -> void:
+	var current_mode := DisplayServer.window_get_mode()
+	if current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN or current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		var screen := DisplayServer.window_get_current_screen()
+		var usable := DisplayServer.screen_get_usable_rect(screen)
+		var win_size := Vector2i(1280, 720)
+		DisplayServer.window_set_size(win_size)
+		DisplayServer.window_set_position(usable.position + (usable.size - win_size) / 2)
 	else:
-		$ParkUI/character_left.texture=null
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	_update_fullscreen_button_label()
+
+
+func _on_minimize_button_pressed() -> void:
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+
+func _update_fullscreen_button_label() -> void:
+	var current_mode := DisplayServer.window_get_mode()
+	var is_fs := current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN or current_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	$SettingsMenu/CenterContainer/PanelContainer/VBoxContainer/FullscreenButton.text = "Fullscreen: On" if is_fs else "Fullscreen: Off"

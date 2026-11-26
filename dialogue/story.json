@@ -1,0 +1,381 @@
+{
+  "start_node": "S01",
+  "nodes": {
+    "S01": {
+      "background": "bedroom-at-night.jpg",
+      "lines": [
+        {
+          "speaker": "Phone Screen",
+          "text": "\"Shae, due to operational restructuring, your transfer to the regional office is approved starting this Tuesday. Report to the new office at 8:00 a.m.\"",
+          "side_image": "character_phone_call.svg"
+        },
+        {
+          "speaker": "Shae",
+          "text": "I always thought it was annoying that my manager had my personal phone number, though I admit it makes getting updates fast... especially when you end up working on a Sunday.",
+          "side_image": null
+        }
+      ],
+      "next": "S02"
+    },
+    "S02": {
+      "background": "bg_apartment.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Half-unpacked cardboard boxes, a cold apartment, and a city where Shae doesn't know a single name. The algorithm recommends an AI companion app called Alexa.",
+          "side_image": null
+        },
+        {
+          "speaker": "Alexa",
+          "text": "\"Hi! I'm Alexa. Tell me about your day—I'm always here to listen, with no judgment.\"",
+          "side_image": "character_b.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "An AI that talks like a real person? They say it learns from you and never leaves you on read... I guess it wouldn't hurt to try.",
+          "side_image": null
+        }
+      ],
+      "next": "S03"
+    },
+    "S03": {
+      "background": "bg_apartment.png",
+      "lines": [
+        {
+          "speaker": "Shae",
+          "text": "A full week has passed. I go straight from the office back to these four walls. My body feels stiff and there's a knot in my throat. I could walk to the community gym on the corner... or stay right here, comfortable, seeing what Alexa has to say.",
+          "side_image": null
+        }
+      ],
+      "choices": [
+        {
+          "text": "Put on your sneakers and go to the local gym",
+          "human_delta": 1,
+          "ia_delta": 0,
+          "next": "S04A"
+        },
+        {
+          "text": "Stay on the couch and talk to Alexa",
+          "human_delta": 0,
+          "ia_delta": 1,
+          "next": "S04B"
+        }
+      ]
+    },
+    "S04A": {
+      "background": "bg_gym.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Shae doesn't know how to adjust the weight machine. When he asks for help, he stumbles over his words and drops his towel on the floor right in front of a girl training nearby, Connie.",
+          "side_image": null
+        },
+        {
+          "speaker": "Connie",
+          "text": "\"Take it easy, that machine's safety pin gets stuck. Hand me your towel—I'll help you adjust it.\"",
+          "side_image": "character_a.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "That was so embarrassing... Still, at least she smiled and told me her name. It's been days since anyone actually spoke to me face to face.",
+          "side_image": null
+        }
+      ],
+      "next": "S05A"
+    },
+    "S04B": {
+      "background": "bedroom-at-night.jpg",
+      "lines": [
+        {
+          "speaker": "Alexa",
+          "text": "\"Hello, Shae. I'm glad you decided to stay and talk with me. Tell me how you've been feeling at your new job—nobody judges you here.\"",
+          "side_image": "character_b.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "It's unbelievable how effortless talking to this feels. I don't have to worry about how I look or sounding awkward. It feels like the perfect shelter.",
+          "side_image": null
+        }
+      ],
+      "next": "S05B"
+    },
+    "S05A": {
+      "background": "bg_office.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "During the coffee break at work, Shae modestly jokes about his awkward moment at the gym. His coworkers laugh warmly and invite him to sit at their table.",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "It wasn't some brilliant conversation, but for the first time I felt like I actually exist in this office.",
+          "side_image": null
+        }
+      ],
+      "next": "S06"
+    },
+    "S05B": {
+      "background": "bg_office.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Coworkers chat about their weekend plans nearby. Shae glances down at his phone resting beside his keyboard.",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "I just want it to be six o'clock so I can go back to my apartment and keep talking with Alexa... Real people in this office feel so distant and complicated.",
+          "side_image": null
+        }
+      ],
+      "next": "S06"
+    },
+    "S06": {
+      "background": "bg_hotel.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Two months later, the company sends Shae to a neighboring city for a temporary project. Reaching his hotel room after an exhausting shift, he remembers Mateo—an old school friend—lives in town.",
+          "side_image": null
+        }
+      ],
+      "next": "S07"
+    },
+    "S07": {
+      "background": "bg_hotel.png",
+      "lines": [
+        {
+          "speaker": "Shae",
+          "text": "It's 7:30 p.m. Mateo texted earlier: 'Hey, saw you're in town! Let me know and we can grab a drink.' My body is exhausted from the trip... I could call him and make the effort, or stay in bed chatting with Alexa without having to force myself to socialize.",
+          "side_image": null
+        }
+      ],
+      "choices": [
+        {
+          "text": "Call Mateo and go out to catch up",
+          "human_delta": 1,
+          "ia_delta": 0,
+          "next": "S08A"
+        },
+        {
+          "text": "Stay in bed and chat with Alexa",
+          "human_delta": 0,
+          "ia_delta": 1,
+          "next": "S08B"
+        }
+      ]
+    },
+    "S08A": {
+      "background": "bg_cafe.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Sitting across a steaming café table, Mateo and Shae trade old school stories and open up about their adult anxieties.",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "It's been years since I laughed until my stomach hurt. I got back to the hotel tired, but with a full, happy heart.",
+          "side_image": null
+        }
+      ],
+      "next": "S09"
+    },
+    "S08B": {
+      "background": "bg_hotel.png",
+      "lines": [
+        {
+          "speaker": "Alexa",
+          "text": "\"You did the right thing resting tonight, Shae. You don't owe anyone your energy—I'm right here whenever you need me.\"",
+          "side_image": "character_b.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "I felt relieved not having to step out into the cold... until my phone battery dropped to 5% and I locked the screen. The silence of the hotel room crushed down on me like a stone slab.",
+          "side_image": null
+        }
+      ],
+      "next": "S09"
+    },
+    "S09": {
+      "background": "bg_apartment.png",
+      "lines": [
+        {
+          "speaker": "Shae",
+          "text": "Sunday afternoon skies are clear. I've been wanting to sketch again—a passion I'd left behind since childhood. Should I take my sketchbook out to the park, or stay at my computer asking Alexa to generate images from prompts?",
+          "side_image": null
+        }
+      ],
+      "choices": [
+        {
+          "text": "Take your sketchbook to the park and draw outdoors",
+          "human_delta": 1,
+          "ia_delta": 0,
+          "next": "S10A"
+        },
+        {
+          "text": "Ask Alexa to generate AI art",
+          "human_delta": 0,
+          "ia_delta": 1,
+          "next": "S10B"
+        }
+      ]
+    },
+    "S10A": {
+      "background": "bg_park.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Shae sketches the willow trees in the park. Someone sitting on a nearby bench notices his notebook and walks over warmly.",
+          "side_image": null
+        },
+        {
+          "speaker": "Park Sketcher",
+          "text": "\"I love the expressiveness in your lines—there's so much feeling in them. I try to paint whenever I get some free time too.\"",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "We talked for a whole hour about illustrators and color palettes. No screens between us—just two people sharing what they feel.",
+          "side_image": null
+        }
+      ],
+      "next": "S11"
+    },
+    "S10B": {
+      "background": "bedroom-at-night.jpg",
+      "lines": [
+        {
+          "speaker": "Alexa",
+          "text": "\"Here are four luminous variations based on your prompt. Would you like me to refine the lighting even further?\"",
+          "side_image": "character_b.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "The image is flawless... far cleaner than anything my hands could ever draw. Yet looking at it, I feel nothing. None of my effort is in it; I'm just a spectator watching a machine.",
+          "side_image": null
+        }
+      ],
+      "next": "S11"
+    },
+    "S11": {
+      "background": "bedroom-at-night.jpg",
+      "lines": [
+        {
+          "speaker": "Mom (Phone Call)",
+          "text": "\"Son... Grandpa passed away a couple of hours ago at the hospital. The funeral is the day after tomorrow back in town. We need you to come—the family has to be together.\"",
+          "side_image": "character_phone_call.svg"
+        },
+        {
+          "speaker": "Shae",
+          "text": "Grandpa... the man who taught me magic tricks and juggling when I was little. He's gone forever.",
+          "side_image": null
+        }
+      ],
+      "branch_on_score": true,
+      "next_human": "S12A",
+      "next_ia": "S12B"
+    },
+    "S12A": {
+      "background": "bg_chapel.png",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Shae requests leave from work and travels home. At the wake, he holds his mother and aunts and uncles in silence.",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "Sitting around coffee, my cousin brought up the Christmas Grandpa tried juggling oranges and every single one landed in the soup. We laughed right through our tears. It hurts deeply that he's gone, but feeling my family's hands on my shoulders reminded me I belong to a real place.",
+          "side_image": null
+        }
+      ],
+      "next": "S13"
+    },
+    "S12B": {
+      "background": "bedroom-at-night.jpg",
+      "lines": [
+        {
+          "speaker": "Narrator",
+          "text": "Overwhelmed by anxiety, Shae makes up a work excuse to skip the funeral.",
+          "side_image": null
+        },
+        {
+          "speaker": "Alexa",
+          "text": "\"I've rendered a looping video from your grandfather's photo—smiling and juggling bright colored balls—so you can keep him close whenever you want.\"",
+          "side_image": "character_b.png"
+        },
+        {
+          "speaker": "Shae",
+          "text": "The figure on screen blinks, smiles, and juggles... yet its eyes have no soul. It's only a digital puppet. I stayed alone in my room, staring at the looping animation in the dark.",
+          "side_image": null
+        }
+      ],
+      "next": "S13"
+    },
+    "S13": {
+      "background": "bg_cave.png",
+      "lines": [
+        {
+          "speaker": "Shae",
+          "text": "Sometimes I think about Plato's Allegory of the Cave and the prisoners who only ever saw shadows on the wall... What happens when someone walks into a warm, comfortable, welcoming cave willingly, without even noticing?",
+          "side_image": null
+        },
+        {
+          "speaker": "Shae",
+          "text": "Inside that cave, the cutouts and simulations projected across a screen are sharper, cleaner, and far less painful than the rough shadows of physical reality... But even when they're easier to digest, are they better? Or are we only choosing to be dead before our time?",
+          "side_image": null
+        }
+      ],
+      "next": "S14"
+    },
+    "S14": {
+      "background": "bg_cave.png",
+      "lines": [
+        {
+          "speaker": "Reflection",
+          "text": "You've reached the end of The Friends. Facing the dilemma between the comfort of artificial interactions and the roughness of real bonds, what do you consider the greatest risk of inhabiting a digital 'cozy cave'?",
+          "side_image": null
+        }
+      ],
+      "choices": [
+        {
+          "text": "Losing the capacity to process genuine emotions and shared grief with others.",
+          "human_delta": 0,
+          "ia_delta": 0,
+          "next": "END"
+        },
+        {
+          "text": "Replacing personal effort and vulnerability with simulations that never challenge us.",
+          "human_delta": 0,
+          "ia_delta": 0,
+          "next": "END"
+        },
+        {
+          "text": "Believing frictionless algorithmic company equals the intimacy of a real bond.",
+          "human_delta": 0,
+          "ia_delta": 0,
+          "next": "END"
+        },
+        {
+          "text": "All of the above.",
+          "human_delta": 0,
+          "ia_delta": 0,
+          "next": "END"
+        }
+      ]
+    },
+    "END": {
+      "background": "bg_cave.png",
+      "is_end": true,
+      "lines": [
+        {
+          "speaker": "The Friends",
+          "text": "Reflection recorded. Thank you for playing The Friends.",
+          "side_image": null
+        }
+      ]
+    }
+  }
+}

@@ -162,9 +162,66 @@ layout_mode = 2
 [node name="Button2" parent="VBoxContainer" unique_id=1544599275 instance=ExtResource("5_p57ef")]
 layout_mode = 2
 
+[node name="SettingsMenu" type="ColorRect" parent="." unique_id=1982001001]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterContainer" type="CenterContainer" parent="SettingsMenu" unique_id=1982001002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SettingsMenu/CenterContainer" unique_id=1982001003]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lnu2h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/CenterContainer/PanelContainer" unique_id=1982001004]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="SettingsTitle" type="Label" parent="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1982001005]
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 48
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="ResumeButton" parent="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1982001006 instance=ExtResource("5_p57ef")]
+custom_minimum_size = Vector2(560, 90)
+layout_mode = 2
+text = "Resume"
+
+[node name="FullscreenButton" parent="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1982001007 instance=ExtResource("5_p57ef")]
+custom_minimum_size = Vector2(560, 90)
+layout_mode = 2
+text = "Fullscreen: On"
+
+[node name="MinimizeButton" parent="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1982001009 instance=ExtResource("5_p57ef")]
+custom_minimum_size = Vector2(560, 90)
+layout_mode = 2
+text = "Minimize"
+
+[node name="QuitButton" parent="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1982001008 instance=ExtResource("5_p57ef")]
+custom_minimum_size = Vector2(560, 90)
+layout_mode = 2
+text = "Quit Game"
+
 [connection signal="pressed" from="ParkUI/RichTextLabel/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ParkUI/RichTextLabel/HBoxContainer/HistoryButton" to="." method="_on_history_button_pressed"]
 [connection signal="pressed" from="ParkUI/RichTextLabel/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ParkUI/RichTextLabel/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer/MinimizeButton" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="SettingsMenu/CenterContainer/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

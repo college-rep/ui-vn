@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1024" viewBox="0 0 512 1024" fill="none">
+  <defs>
+    <!-- Soft cyan-blue ambient glow matching The Friends night/call lighting -->
+    <radialGradient id="ambientGlow" cx="50%" cy="34%" r="48%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#0EA5E9" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Phone chassis gradient -->
+    <linearGradient id="bodyGrad" x1="106" y1="90" x2="406" y2="605" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#090E1A"/>
+    </linearGradient>
+
+    <!-- Screen call gradient -->
+    <linearGradient id="screenGrad" x1="256" y1="142" x2="256" y2="540" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B1326"/>
+      <stop offset="55%" stop-color="#122244"/>
+      <stop offset="100%" stop-color="#0B1933"/>
+    </linearGradient>
+
+    <!-- Subtle diagonal glass reflection -->
+    <linearGradient id="glassSheen" x1="120" y1="90" x2="406" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.14"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Avatar ring gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0F0"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+
+    <!-- Drop shadow under phone -->
+    <filter id="phoneShadow" x="70" y="70" width="372" height="580" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020617" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient aura behind smartphone -->
+  <ellipse cx="256" cy="348" rx="220" ry="290" fill="url(#ambientGlow)"/>
+
+  <!-- Side hardware buttons -->
+  <rect x="100" y="182" width="6" height="36" rx="3" fill="#334155"/>
+  <rect x="100" y="232" width="6" height="48" rx="3" fill="#334155"/>
+  <rect x="406" y="205" width="6" height="54" rx="3" fill="#334155"/>
+
+  <!-- Main phone body (positioned cleanly above y=630 dialogue box) -->
+  <g filter="url(#phoneShadow)">
+    <rect x="106" y="90" width="300" height="515" rx="36" fill="url(#bodyGrad)" stroke="#38BDF8" stroke-opacity="0.4" stroke-width="2.5"/>
+  </g>
+
+  <!-- Inner bezel highlight -->
+  <rect x="111" y="95" width="290" height="505" rx="31" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1"/>
+
+  <!-- Top speaker grille & front camera -->
+  <rect x="226" y="114" width="60" height="6" rx="3" fill="#334155"/>
+  <circle cx="204" cy="117" r="4.5" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+  <circle cx="204" cy="117" r="2" fill="#38BDF8" fill-opacity="0.6"/>
+
+  <!-- Screen background -->
+  <rect x="124" y="140" width="264" height="402" rx="16" fill="url(#screenGrad)" stroke="#1E3A5F" stroke-width="1.5"/>
+
+  <!-- Status bar -->
+  <rect x="142" y="154" width="34" height="6" rx="3" fill="#94A3B8" fill-opacity="0.55"/>
+  <!-- Signal bars -->
+  <rect x="336" y="159" width="3" height="5" rx="1" fill="#E2E8F0" fill-opacity="0.8"/>
+  <rect x="341" y="157" width="3" height="7" rx="1" fill="#E2E8F0" fill-opacity="0.8"/>
+  <rect x="346" y="154" width="3" height="10" rx="1" fill="#E2E8F0" fill-opacity="0.8"/>
+  <!-- Battery icon -->
+  <rect x="355" y="154" width="18" height="10" rx="2" fill="none" stroke="#E2E8F0" stroke-opacity="0.8" stroke-width="1.3"/>
+  <rect x="357" y="156" width="11" height="6" rx="1" fill="#38BDF8"/>
+  <rect x="373" y="157" width="2" height="4" rx="0.5" fill="#E2E8F0" fill-opacity="0.8"/>
+
+  <!-- Incoming / active call pulsing rings -->
+  <circle cx="256" cy="264" r="78" fill="none" stroke="#00F0F0" stroke-opacity="0.16" stroke-width="2"/>
+  <circle cx="256" cy="264" r="62" fill="none" stroke="#38BDF8" stroke-opacity="0.32" stroke-width="2"/>
+  <circle cx="256" cy="264" r="48" fill="#1E3A8A" fill-opacity="0.55" stroke="url(#ringGrad)" stroke-width="3"/>
+
+  <!-- Caller silhouette inside avatar -->
+  <circle cx="256" cy="251" r="15" fill="#E0F2FE"/>
+  <path d="M229 294 C229 277 241 270 256 270 C271 270 283 277 283 294" fill="#E0F2FE"/>
+
+  <!-- Caller label bar & active call waveform -->
+  <rect x="206" y="362" width="100" height="10" rx="5" fill="#E2E8F0" fill-opacity="0.85"/>
+  <rect x="224" y="380" width="64" height="6" rx="3" fill="#38BDF8" fill-opacity="0.7"/>
+
+  <!-- Voice call audio waveform bars -->
+  <g fill="#00F0F0" fill-opacity="0.85">
+    <rect x="210" y="416" width="5" height="14" rx="2.5"/>
+    <rect x="221" y="408" width="5" height="30" rx="2.5"/>
+    <rect x="232" y="400" width="5" height="46" rx="2.5"/>
+    <rect x="243" y="410" width="5" height="26" rx="2.5"/>
+    <rect x="254" y="396" width="5" height="54" rx="2.5"/>
+    <rect x="265" y="408" width="5" height="30" rx="2.5"/>
+    <rect x="276" y="403" width="5" height="40" rx="2.5"/>
+    <rect x="287" y="413" width="5" height="20" rx="2.5"/>
+    <rect x="298" y="418" width="5" height="10" rx="2.5"/>
+  </g>
+
+  <!-- Answer (Green) & Decline (Red) call action buttons -->
+  <circle cx="192" cy="492" r="28" fill="#22C55E"/>
+  <path d="M182 486 C182 484 184 482 186 482 L190 482 C191 482 192 483 192 484 L193 488 C193 489 192 490 191 491 L189 492 C191 495 193 497 196 499 L197 497 C198 496 199 495 200 495 L204 496 C205 496 206 497 206 498 L206 502 C206 504 204 506 202 506 C191 506 182 497 182 486 Z" fill="#FFFFFF"/>
+
+  <circle cx="320" cy="492" r="28" fill="#EF4444"/>
+  <path d="M306 493 C314 487 326 487 334 493 C335 494 335 495 334 496 L331 499 C330 500 329 500 328 499 L325 497 C324 496 324 495 325 494 C322 493 318 493 315 494 C316 495 316 496 315 497 L312 499 C311 500 310 500 309 499 L306 496 C305 495 305 494 306 493 Z" fill="#FFFFFF"/>
+
+  <!-- Bottom home pill button (modernized from reference) -->
+  <rect x="231" y="562" width="50" height="20" rx="10" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Diagonal glass sheen across bezel and screen -->
+  <path d="M235 90 L370 90 C390 90 406 106 406 126 L406 440 L195 90 Z" fill="url(#glassSheen)"/>
+</svg>
